@@ -9,7 +9,7 @@ function setup() {
 }
 
 function draw() {
-  let escalar = window.innerWidth < 700;
+  let escalar = window.innerWidth < 600;
 
   if (escalar) {
     push();
