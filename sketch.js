@@ -9,11 +9,11 @@ function setup() {
 }
 
 function draw() {
-  let escalar = window.innerWidth < 750;
+  let escalar = window.innerWidth < 790;
 
   if (escalar) {
     push();
-    scale(0.85);
+    scale(0.75);
     translate(20, 20); // Centrado visual al escalar
   }
 
