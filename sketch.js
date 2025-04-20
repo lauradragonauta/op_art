@@ -1,16 +1,27 @@
 let pulsado = 0;
 
 function setup() {
-  createCanvas(800, 800);
+  const container = document.getElementById('p5-container');
+  const w = container.offsetWidth;
+  const h = container.offsetHeight;
+  let canvas = createCanvas(w, h);
+  canvas.parent('p5-container');
+
   rectMode(CENTER);
   strokeWeight(1);
-  frameRate(10); // igual que en Processing
+  frameRate(10);
 }
 
 function draw() {
-  //background(0);
+  let escalar = width < 850;
 
-  // Cambio automático cada 4 segundos (240 frames)
+  if (escalar) {
+    push();
+    scale(0.5);
+    translate(200, 200); // mover el contenido escalado
+  }
+
+  // Cambio automático cada 4 segundos (480 frames a 10fps)
   if (frameCount % (480 * 2) === 0) {
     pulsado *= -1;
   }
@@ -20,21 +31,29 @@ function draw() {
   } else {
     paletaColorUno();
   }
+
+  if (escalar) {
+    pop();
+  }
+}
+
+function windowResized() {
+  const container = document.getElementById('p5-container');
+  const w = container.offsetWidth;
+  const h = container.offsetHeight;
+  resizeCanvas(w, h);
 }
 
 function mousePressed() {
   if (pulsado === 0) {
-    //background(0);
     paletaColorUno();
     pulsado = 1;
   } else if (pulsado === 1) {
-    //background(0);
     paletaBlancoNegro();
     pulsado = 0;
   }
 }
 
-// Paleta en blanco y negro
 function paletaBlancoNegro() {
   for (let i = width / 16; i < width; i += width / 8) {
     for (let j = height / 16; j < height; j += height / 8) {
@@ -45,7 +64,6 @@ function paletaBlancoNegro() {
       rect(i, j, width / 8, height / 8);
 
       stroke(255);
-
       if (randomOption === 0) {
         Lines(i - width / 16, j - height / 16);
       } else if (randomOption === 1) {
@@ -67,7 +85,6 @@ function paletaBlancoNegro() {
   }
 }
 
-// Paleta en color
 function paletaColorUno() {
   for (let i = width / 16; i < width; i += width / 8) {
     for (let j = height / 16; j < height; j += height / 8) {
@@ -175,4 +192,3 @@ function ConvergingLines(x, y) {
     line(x, y - offset, x - width / 16, y + height / 16);
   }
 }
-
