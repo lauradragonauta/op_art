@@ -1,7 +1,7 @@
 let pulsado = 0;
 
 function setup() {
-  let canvas = createCanvas(900, 900); // Tamaño fijo original
+  let canvas = createCanvas(800, 800); // Tamaño fijo original
   canvas.parent('p5-container');
   rectMode(CENTER);
   strokeWeight(1);
@@ -9,7 +9,7 @@ function setup() {
 }
 
 function draw() {
-  let escalar = window.innerWidth < 850;
+  let escalar = window.innerWidth < 750;
 
   if (escalar) {
     push();
