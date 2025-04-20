@@ -14,7 +14,7 @@ function draw() {
   if (escalar) {
     push();
     scale(2/3);
-    translate(200, 200); // Centrado visual al escalar
+    //translate(200, 200); // Centrado visual al escalar
   }
 
   if (frameCount % (480 * 2) === 0) {
