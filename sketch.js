@@ -1,7 +1,7 @@
 let pulsado = 0;
 
 function setup() {
-  let canvas = createCanvas(800, 800); // Tamaño fijo original
+  let canvas = createCanvas(900, 900); // Tamaño fijo original
   canvas.parent('p5-container');
   rectMode(CENTER);
   strokeWeight(1);
@@ -14,7 +14,7 @@ function draw() {
   if (escalar) {
     push();
     scale(0.75);
-    translate(133, 133); // 800 * (1 - 0.75) / 2 = 100 aprox, pero mejor 133 para compensar márgenes
+    translate(20, 133); // 800 * (1 - 0.75) / 2 = 100 aprox, pero mejor 133 para compensar márgenes
   }
 
   if (frameCount % (480 * 2) === 0) {
