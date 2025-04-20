@@ -13,7 +13,7 @@ function draw() {
 
   if (escalar) {
     push();
-    scale(0.5);
+    scale(2/3);
     translate(200, 200); // Centrado visual al escalar
   }
 
