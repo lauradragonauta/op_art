@@ -14,7 +14,7 @@ function draw() {
   if (escalar) {
     push();
     scale(0.66);
-    translate(20, 133); // 800 * (1 - 0.75) / 2 = 100 aprox, pero mejor 133 para compensar márgenes
+    translate(10, 133); // 800 * (1 - 0.75) / 2 = 100 aprox, pero mejor 133 para compensar márgenes
   }
 
   if (frameCount % (480 * 2) === 0) {
