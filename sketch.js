@@ -13,7 +13,7 @@ function draw() {
 
   if (escalar) {
     push();
-    scale(0.75);
+    scale(0.66);
     translate(20, 133); // 800 * (1 - 0.75) / 2 = 100 aprox, pero mejor 133 para compensar márgenes
   }
 
