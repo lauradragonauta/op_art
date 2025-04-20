@@ -1,24 +1,20 @@
 let pulsado = 0;
 
 function setup() {
-  const container = document.getElementById('p5-container');
-  const w = container.offsetWidth;
-  const h = container.offsetHeight;
-  let canvas = createCanvas(w, h);
+  let canvas = createCanvas(900, 900); // Tamaño fijo
   canvas.parent('p5-container');
-
   rectMode(CENTER);
   strokeWeight(1);
   frameRate(10);
 }
 
 function draw() {
-  let escalar = width < 850;
+  let escalar = width < 800;
 
   if (escalar) {
     push();
     scale(0.5);
-    translate(200, 200); // mover el contenido escalado
+    translate(200, 200); // Centrado visual al escalar
   }
 
   // Cambio automático cada 4 segundos (480 frames a 10fps)
@@ -37,13 +33,6 @@ function draw() {
   }
 }
 
-function windowResized() {
-  const container = document.getElementById('p5-container');
-  const w = container.offsetWidth;
-  const h = container.offsetHeight;
-  resizeCanvas(w, h);
-}
-
 function mousePressed() {
   if (pulsado === 0) {
     paletaColorUno();
@@ -53,6 +42,8 @@ function mousePressed() {
     pulsado = 0;
   }
 }
+
+// ---------------- PALETAS ----------------
 
 function paletaBlancoNegro() {
   for (let i = width / 16; i < width; i += width / 8) {
@@ -124,7 +115,7 @@ function paletaColorUno() {
   }
 }
 
-// ---------------- Figuras ----------------
+// ---------------- FIGURAS ----------------
 
 function Circles(x, y) {
   for (let i = 0; i < 20; i++) {
