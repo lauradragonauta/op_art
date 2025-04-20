@@ -1,7 +1,7 @@
 let pulsado = 0;
 
 function setup() {
-  let canvas = createCanvas(900, 900); // Tamaño fijo
+  let canvas = createCanvas(900, 900); // Tamaño fijo original
   canvas.parent('p5-container');
   rectMode(CENTER);
   strokeWeight(1);
@@ -9,7 +9,7 @@ function setup() {
 }
 
 function draw() {
-  let escalar = width < 800;
+  let escalar = window.innerWidth < 850;
 
   if (escalar) {
     push();
@@ -17,7 +17,6 @@ function draw() {
     translate(200, 200); // Centrado visual al escalar
   }
 
-  // Cambio automático cada 4 segundos (480 frames a 10fps)
   if (frameCount % (480 * 2) === 0) {
     pulsado *= -1;
   }
@@ -28,19 +27,11 @@ function draw() {
     paletaColorUno();
   }
 
-  if (escalar) {
-    pop();
-  }
+  if (escalar) pop();
 }
 
 function mousePressed() {
-  if (pulsado === 0) {
-    paletaColorUno();
-    pulsado = 1;
-  } else if (pulsado === 1) {
-    paletaBlancoNegro();
-    pulsado = 0;
-  }
+  pulsado = pulsado === 0 ? 1 : 0;
 }
 
 // ---------------- PALETAS ----------------
@@ -55,22 +46,19 @@ function paletaBlancoNegro() {
       rect(i, j, width / 8, height / 8);
 
       stroke(255);
-      if (randomOption === 0) {
-        Lines(i - width / 16, j - height / 16);
-      } else if (randomOption === 1) {
-        Circles(i, j);
-      } else if (randomOption === 2) {
-        LinesTriangles(i, j);
-      } else if (randomOption === 3) {
-        push();
-        translate(i, j);
-        rotate(radians(180));
-        Triangles(0, 0);
-        pop();
-      } else if (randomOption === 4) {
-        Rectangles(i, j);
-      } else {
-        ConvergingLines(i, j);
+      switch (randomOption) {
+        case 0: Lines(i - width / 16, j - height / 16); break;
+        case 1: Circles(i, j); break;
+        case 2: LinesTriangles(i, j); break;
+        case 3:
+          push();
+          translate(i, j);
+          rotate(radians(180));
+          Triangles(0, 0);
+          pop();
+          break;
+        case 4: Rectangles(i, j); break;
+        default: ConvergingLines(i, j); break;
       }
     }
   }
@@ -82,34 +70,24 @@ function paletaColorUno() {
       let randomOption = int(random(6));
 
       noStroke();
-      if (randomOption === 0) fill('#dc4c0e');
-      else if (randomOption === 1) fill('#dc9c07');
-      else if (randomOption === 2) fill('#f5a9a9');
-      else if (randomOption === 3) fill('#0365b8');
-      else if (randomOption === 4) fill('#5829b2');
-      else fill('#29b2a1');
-
+      fill(['#dc4c0e', '#dc9c07', '#f5a9a9', '#0365b8', '#5829b2', '#29b2a1'][randomOption]);
       rect(i, j, width / 8, height / 8);
 
       stroke(255);
       noFill();
-
-      if (randomOption === 0) {
-        Lines(i - width / 16, j - height / 16);
-      } else if (randomOption === 1) {
-        Circles(i, j);
-      } else if (randomOption === 2) {
-        LinesTriangles(i, j);
-      } else if (randomOption === 3) {
-        push();
-        translate(i, j);
-        rotate(radians(180));
-        Triangles(0, 0);
-        pop();
-      } else if (randomOption === 4) {
-        Rectangles(i, j);
-      } else {
-        ConvergingLines(i, j);
+      switch (randomOption) {
+        case 0: Lines(i - width / 16, j - height / 16); break;
+        case 1: Circles(i, j); break;
+        case 2: LinesTriangles(i, j); break;
+        case 3:
+          push();
+          translate(i, j);
+          rotate(radians(180));
+          Triangles(0, 0);
+          pop();
+          break;
+        case 4: Rectangles(i, j); break;
+        default: ConvergingLines(i, j); break;
       }
     }
   }
