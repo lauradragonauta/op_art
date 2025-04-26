@@ -1,15 +1,21 @@
 let pulsado = 0;
+let baseSize = 800; // tamaño lógico interno
 
 function setup() {
-  let canvas = createCanvas(windowWidth, windowWidth); // cuadrado 1:1 basado en ancho
+  let canvas = createCanvas(windowWidth, windowWidth); // canvas cuadrado
   canvas.parent('p5-container');
   rectMode(CENTER);
   strokeWeight(1);
   frameRate(10);
+  pixelDensity(1); // evitar distorsiones en pantallas retina
 }
 
 function draw() {
   background(255);
+
+  // Escalar todo el contenido para que siempre trabaje como si fuera 900x900
+  let escala = width / baseSize;
+  scale(escala);
 
   if (frameCount % (480 * 2) === 0) {
     pulsado *= -1;
@@ -27,23 +33,23 @@ function mousePressed() {
 }
 
 function windowResized() {
-  resizeCanvas(windowWidth, windowWidth); // siempre cuadrado
+  resizeCanvas(windowWidth, windowWidth); // mantener proporción 1:1
 }
 
 // ---------------- PALETAS ----------------
 
 function paletaBlancoNegro() {
-  for (let i = width / 16; i < width; i += width / 8) {
-    for (let j = height / 16; j < height; j += height / 8) {
+  for (let i = baseSize / 16; i < baseSize; i += baseSize / 8) {
+    for (let j = baseSize / 16; j < baseSize; j += baseSize / 8) {
       let randomOption = int(random(6));
 
       fill(0);
       noStroke();
-      rect(i, j, width / 8, height / 8);
+      rect(i, j, baseSize / 8, baseSize / 8);
 
       stroke(255);
       switch (randomOption) {
-        case 0: Lines(i - width / 16, j - height / 16); break;
+        case 0: Lines(i - baseSize / 16, j - baseSize / 16); break;
         case 1: Circles(i, j); break;
         case 2: LinesTriangles(i, j); break;
         case 3:
@@ -61,18 +67,18 @@ function paletaBlancoNegro() {
 }
 
 function paletaColorUno() {
-  for (let i = width / 16; i < width; i += width / 8) {
-    for (let j = height / 16; j < height; j += height / 8) {
+  for (let i = baseSize / 16; i < baseSize; i += baseSize / 8) {
+    for (let j = baseSize / 16; j < baseSize; j += baseSize / 8) {
       let randomOption = int(random(6));
 
       noStroke();
       fill(['#dc4c0e', '#dc9c07', '#f5a9a9', '#0365b8', '#5829b2', '#29b2a1'][randomOption]);
-      rect(i, j, width / 8, height / 8);
+      rect(i, j, baseSize / 8, baseSize / 8);
 
       stroke(255);
       noFill();
       switch (randomOption) {
-        case 0: Lines(i - width / 16, j - height / 16); break;
+        case 0: Lines(i - baseSize / 16, j - baseSize / 16); break;
         case 1: Circles(i, j); break;
         case 2: LinesTriangles(i, j); break;
         case 3:
@@ -102,15 +108,15 @@ function Circles(x, y) {
 
 function Lines(x, y) {
   for (let i = 0; i < 10; i++) {
-    let offset = i * (width / 80);
+    let offset = i * (baseSize / 80);
     stroke(255);
-    line(x + offset, y, x + width / 8 - offset, y + height / 8);
-    line(x, y + offset, x + width / 8, y + height / 8 - offset);
+    line(x + offset, y, x + baseSize / 8 - offset, y + baseSize / 8);
+    line(x, y + offset, x + baseSize / 8, y + baseSize / 8 - offset);
   }
 }
 
 function LinesTriangles(x, y) {
-  let cellSize = width / 8;
+  let cellSize = baseSize / 8;
   stroke(255);
   noFill();
   for (let k = 0; k < cellSize / 2; k += cellSize / 20) {
@@ -138,7 +144,7 @@ function Triangles(x, y) {
 }
 
 function Rectangles(x, y) {
-  let cellSize = width / 8;
+  let cellSize = baseSize / 8;
   for (let i = 0; i < 48; i++) {
     let size = 5 + i * 2;
     noFill();
@@ -149,11 +155,11 @@ function Rectangles(x, y) {
 
 function ConvergingLines(x, y) {
   for (let i = 0; i < 10; i++) {
-    let offset = i * (width / 160);
+    let offset = i * (baseSize / 160);
     stroke(255);
-    line(x, y - offset, x + width / 16, y + height / 16);
-    line(x, y + offset, x + width / 16, y + height / 16);
-    line(x, y + offset, x - width / 16, y + height / 16);
-    line(x, y - offset, x - width / 16, y + height / 16);
+    line(x, y - offset, x + baseSize / 16, y + baseSize / 16);
+    line(x, y + offset, x + baseSize / 16, y + baseSize / 16);
+    line(x, y + offset, x - baseSize / 16, y + baseSize / 16);
+    line(x, y - offset, x - baseSize / 16, y + baseSize / 16);
   }
 }
