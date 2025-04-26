@@ -1,7 +1,7 @@
 let pulsado = 0;
 
 function setup() {
-  let canvas = createCanvas(805, 805); // Tamaño fijo original
+  let canvas = createCanvas(windowWidth, windowWidth); // cuadrado 1:1 basado en ancho
   canvas.parent('p5-container');
   rectMode(CENTER);
   strokeWeight(1);
@@ -9,13 +9,7 @@ function setup() {
 }
 
 function draw() {
-  let escalar = window.innerWidth < 801;
-
-  if (escalar) {
-    push();
-    scale(0.66);
-    translate(0, 133); // 800 * (1 - 0.75) / 2 = 100 aprox, pero mejor 133 para compensar márgenes
-  }
+  background(255);
 
   if (frameCount % (480 * 2) === 0) {
     pulsado *= -1;
@@ -26,12 +20,14 @@ function draw() {
   } else {
     paletaColorUno();
   }
-
-  if (escalar) pop();
 }
 
 function mousePressed() {
   pulsado = pulsado === 0 ? 1 : 0;
+}
+
+function windowResized() {
+  resizeCanvas(windowWidth, windowWidth); // siempre cuadrado
 }
 
 // ---------------- PALETAS ----------------
