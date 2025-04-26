@@ -1,21 +1,20 @@
 let pulsado = 0;
-let baseSize = 800; // tamaño lógico interno
+let baseSize = 900; // tamaño lógico de referencia
+let escala = 1;
 
 function setup() {
-  let canvas = createCanvas(windowWidth, windowWidth); // canvas cuadrado
+  let canvas = createCanvas(100, 100); // inicializar pequeño
   canvas.parent('p5-container');
   rectMode(CENTER);
   strokeWeight(1);
   frameRate(10);
-  pixelDensity(1); // evitar distorsiones en pantallas retina
+  pixelDensity(1);
+  ajustarCanvas();
 }
 
 function draw() {
   background(255);
-
-  // Escalar todo el contenido para que siempre trabaje como si fuera 900x900
-  let escala = width / baseSize;
-  scale(escala);
+  scale(escala); // aplicar escala adaptada al tamaño real
 
   if (frameCount % (480 * 2) === 0) {
     pulsado *= -1;
@@ -33,7 +32,13 @@ function mousePressed() {
 }
 
 function windowResized() {
-  resizeCanvas(windowWidth, windowWidth); // mantener proporción 1:1
+  ajustarCanvas();
+}
+
+function ajustarCanvas() {
+  let tam = min(windowWidth, windowHeight); // usar el menor entre ancho y alto
+  resizeCanvas(tam, tam);
+  escala = tam / baseSize; // calcular nueva escala
 }
 
 // ---------------- PALETAS ----------------
